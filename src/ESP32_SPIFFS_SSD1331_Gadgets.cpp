@@ -1,10 +1,10 @@
 /*
   ESP32_SPIFFS_SSD1331_Gadgets.cpp
-  Beta version 1.0
+  Beta version 1.1
 
 Copyright (c) 2017 Mgo-tec
 
-This library is used by the Arduino IDE(Tested in ver1.8.2).
+This library is used by the Arduino IDE(Tested in ver1.8.5).
 
 Reference Blog --> https://www.mgo-tec.com
 
@@ -292,20 +292,45 @@ void ESP32_SPIFFS_SSD1331_Gadgets::Scroll_1_line(uint8_t CS_pin, uint8_t y, uint
 //******************** root CA SPIFFS Get **********************
 void ESP32_SPIFFS_SSD1331_Gadgets::Root_CA_SPIFFS_Read(const char *filename, char Root_CA[]){
 
-    File file = SPIFFS.open(filename, FILE_READ);
-    if (!file) {
-      Serial.print(filename);
-      Serial.print(" File not found");
-      return;
-    }else{
-      Serial.print(filename);
-      Serial.println(" File read OK!");
+  File file = SPIFFS.open(filename, FILE_READ);
+  if (!file) {
+    Serial.print(filename);
+    Serial.print(" File not found");
+    return;
+  }else{
+    Serial.print(filename);
+    Serial.println(" File read OK!");
+  }
+
+  size_t len = file.size();
+  size_t flen = len;
+  uint8_t buf[flen];
+  size_t cnt = 0;
+
+  while(len){
+    size_t toRead = len;
+    if(toRead > 512){
+      toRead = 512;
     }
-    uint16_t i = 0;
-    while(file.available()){
-      Root_CA[i] = file.read();
-      i++;
-    }
-    Root_CA[i] = '\0';
-    file.close();
+    file.read(buf+cnt, toRead);
+    cnt = cnt + toRead;
+    len -= toRead;
+  }
+  
+  for(int i=0; i<flen; i++){
+    Root_CA[i] = buf[i]; //uint8_t -> char cast
+  }
+  
+  Serial.printf("root_ca file size = %d byte\r\n", flen);
+/*  
+  uint16_t i = 0;
+  while(file.available()){
+    Root_CA[i] = file.read();
+    if( Root_CA[i] == 0) break;
+    i++;
+    delay(1);
+  }
+  Root_CA[i] = 0;
+*/
+  file.close();
 }

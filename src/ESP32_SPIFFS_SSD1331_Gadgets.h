@@ -1,6 +1,6 @@
 /*
   ESP32_SPIFFS_SSD1331_Gadgets.h
-  Beta version 1.0
+  Beta version 1.1
 
 Copyright (c) 2017 Mgo-tec
 

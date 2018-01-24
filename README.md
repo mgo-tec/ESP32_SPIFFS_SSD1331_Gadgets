@@ -1,7 +1,7 @@
-# ESP32_SPIFFS_SSD1331_Gadgets Beta ver 1.0
+# ESP32_SPIFFS_SSD1331_Gadgets Beta ver 1.1
 This library is for the Arduino core for the ESP32.  
 https://github.com/espressif/arduino-esp32  
-This library is used by the Arduino IDE(Tested in ver1.8.2).  
+This library is used by the Arduino IDE(Tested in ver1.8.5).  
   
 Use SPIFFS file system.  
 Use OLED SSD1331 ( SPI ).  
@@ -16,10 +16,16 @@ The following library is required.
 My Blog: https://www.mgo-tec.com  
 
 # Change log
+(beta 1.1)  
+Changed method to read Root CA certificate from SPIFFS.  
+  
 (beta 1.0)  
 New released.  
 
 【更新履歴】(Japanese)  
+(1.1)  
+Root CA 証明書をSPIFFS から読み取る方式を変更しました。  
+  
 (1.0)  
 New リリース  
   
